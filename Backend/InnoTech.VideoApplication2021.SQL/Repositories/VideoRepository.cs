@@ -26,9 +26,11 @@ namespace InnoTech.VideoApplication2021.SQL.Repositories
             return _videoConverter.Convert(videoEntity);
         }
 
-        public void Delete(int id)
+        public Video Delete(int id)
         {
-            _videosTable.Remove(_videosTable.Where(x=>x.Id==id).SingleOrDefault());
+            var videosRemove = _videosTable.FirstOrDefault(x => x.Id == id);
+            _videosTable = _videosTable.Where(x => x.Id != id).ToList();
+            return videosRemove == null ?null:_videoConverter.Convert(videosRemove);
         }
 
         public List<Video> FindAll()

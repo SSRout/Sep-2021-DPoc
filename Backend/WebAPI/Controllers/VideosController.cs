@@ -69,10 +69,10 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<string> Delete(int id)
+        public ActionResult<Video> Delete(int id)
         {
             _service.Delete(id);
-            return Ok($"{id} deleted");
+            return NoContent();
         }
     }
 }

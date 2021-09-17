@@ -18,9 +18,9 @@ namespace InnoTech.VideoApplication2021.Domain.Services
             return _repo.Add(video);
         }
 
-        public void Delete(int id)
+        public Video Delete(int id)
         {
-            _repo.Delete(id);
+            return _repo.Delete(id);
         }
 
         public List<Video> ReadAll()
