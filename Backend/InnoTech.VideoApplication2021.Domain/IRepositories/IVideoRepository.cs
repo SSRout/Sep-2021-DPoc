@@ -11,6 +11,6 @@ namespace InnoTech.VideoApplication2021.Domain.IRepositories
 
         Video FindVideoById(int id);
         Video UpdateVideo(Video video);
-        void Delete(int id);
+        Video Delete(int id);
     }
 }
