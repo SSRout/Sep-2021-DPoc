@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using InnotTech.VideoApplication2021.Core.Models;
 
@@ -9,5 +10,7 @@ namespace InnoTech.VideoApplication2021.Domain.IRepositories
         List<Video> FindAll();
 
         Video FindVideoById(int id);
+        Video UpdateVideo(Video video);
+        void Delete(int id);
     }
 }

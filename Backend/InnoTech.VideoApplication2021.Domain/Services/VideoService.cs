@@ -18,6 +18,11 @@ namespace InnoTech.VideoApplication2021.Domain.Services
             return _repo.Add(video);
         }
 
+        public void Delete(int id)
+        {
+            _repo.Delete(id);
+        }
+
         public List<Video> ReadAll()
         {
             return _repo.FindAll();
@@ -26,6 +31,11 @@ namespace InnoTech.VideoApplication2021.Domain.Services
         public Video ReadById(int id)
         {
             return _repo.FindVideoById(id);
+        }
+
+        public Video UpdateVideo(Video video)
+        {
+            return _repo.UpdateVideo(video);
         }
     }
 }

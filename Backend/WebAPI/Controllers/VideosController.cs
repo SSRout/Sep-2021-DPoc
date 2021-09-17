@@ -21,7 +21,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public  ActionResult<Video> CreateVideo([FromBody]PostVideoDto VideoDto)
+        public ActionResult<Video> CreateVideo([FromBody] PostVideoDto VideoDto)
         {
             var newVideo = new Video
             {
@@ -29,7 +29,7 @@ namespace WebAPI.Controllers
                 ReleaseDate = VideoDto.ReleaseDate,
                 StoryLine = VideoDto.StoryLine
             };
-            return Ok(_service.Create(newVideo));
+            return Created($"http://localhost:5000/api/videos/{newVideo.Id}", _service.Create(newVideo));
         }
 
         [HttpGet]
@@ -41,14 +41,38 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public ActionResult<Video> GetById(int id)
         {
-            var video= _service.ReadById(id);
+            var video = _service.ReadById(id);
 
             return Ok(new GetVideoByIdDto
             {
-                Title=video.Title,
-                StoryLine=video.StoryLine,
-                ReleaseDate=video.ReleaseDate
+                Title = video.Title,
+                StoryLine = video.StoryLine,
+                ReleaseDate = video.ReleaseDate
             });
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult<Video> PutVideo(int id,[FromBody] PutVideoDto dto)
+        {
+            if (id != dto.Id)
+            {
+                return BadRequest("id param must be same as object Id..");
+            }
+            var video = _service.UpdateVideo(new Video
+            {
+                Id=id,
+                Title=dto.Title,
+                StoryLine=dto.StoryLine,
+                ReleaseDate=dto.ReleaseDate
+            });
+            return Ok(video);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<string> Delete(int id)
+        {
+            _service.Delete(id);
+            return Ok($"{id} deleted");
         }
     }
 }

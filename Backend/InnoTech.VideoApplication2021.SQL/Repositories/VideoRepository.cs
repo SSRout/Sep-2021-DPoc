@@ -26,6 +26,11 @@ namespace InnoTech.VideoApplication2021.SQL.Repositories
             return _videoConverter.Convert(videoEntity);
         }
 
+        public void Delete(int id)
+        {
+            _videosTable.Remove(_videosTable.Where(x=>x.Id==id).SingleOrDefault());
+        }
+
         public List<Video> FindAll()
         {
             var listOfVideos = new List<Video>();
@@ -40,6 +45,14 @@ namespace InnoTech.VideoApplication2021.SQL.Repositories
         public Video FindVideoById(int id)
         {
             return _videoConverter.Convert(_videosTable.FirstOrDefault(x => x.Id == id));
+        }
+
+        public Video UpdateVideo(Video video)
+        {
+            var res = _videosTable.FirstOrDefault(x => x.Id == video.Id);
+            res.Title = video.Title;
+            res.StoryLine = video.StoryLine;
+            return _videoConverter.Convert(res);
         }
     }
 }
