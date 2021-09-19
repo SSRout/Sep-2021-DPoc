@@ -15,11 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InnoTech.VideoApplication20
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{EB697A06-286A-4007-B730-E58C4245FC1B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InnoTech.VideoApplication2021.SQL", "InnoTech.VideoApplication2021.SQL\InnoTech.VideoApplication2021.SQL.csproj", "{684E25A3-94B5-4048-BDC7-5343C909A0AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InnoTech.VideoApplication2021.Fake.SQL", "InnoTech.VideoApplication2021.SQL\InnoTech.VideoApplication2021.Fake.SQL.csproj", "{684E25A3-94B5-4048-BDC7-5343C909A0AB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{8D5A0F2B-0CE1-49DA-928F-6A01A1559E83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DPoc.Efcore", "DPoc.Efcore\DPoc.Efcore.csproj", "{A1FA147D-39D0-43B5-AEC6-DAD3F49C4835}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DPoc.Efcore", "DPoc.Efcore\DPoc.Efcore.csproj", "{A1FA147D-39D0-43B5-AEC6-DAD3F49C4835}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

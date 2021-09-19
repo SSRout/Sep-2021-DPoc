@@ -3,12 +3,15 @@
 ### Tech Used:
 
   - .Net 5
+  - Sql Lite
+  - Fluent Api
+  
 
 
 ### Project Structure
 
 In this applicatoin we have 3 Folder Structure 
-Core,Imfrastructure,UI
+Core,Infrastructure,UI,Test
 
 ```
 	.sln
@@ -17,13 +20,15 @@ Core,Imfrastructure,UI
 	│   ├── API
 	├── Core
 	│   ├──Domain(class library)
-	|   ├──Core(class library)
+	│   ├──Core(class library)
 	├── Infrastructure
-	│   ├── SQL
+	│   ├──Fake SQL
+	│   ├──FE Core
+        │
 	├──demo1
-	│	├── dm1(class library)
-	│	├── dm2(ConsoleApp)
-	├── Test
+	│   ├── dm1(class library)
+	│   ├── dm2(ConsoleApp)
+	├───Test
 
 
 ```
