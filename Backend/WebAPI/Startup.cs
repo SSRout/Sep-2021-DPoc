@@ -32,6 +32,8 @@ namespace WebAPI
 
             services.AddScoped<IVideoService, VideoService>();
             services.AddScoped<IVideoRepository, VideoRepository>();
+            services.AddScoped<IGenreServices, GenreService>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
