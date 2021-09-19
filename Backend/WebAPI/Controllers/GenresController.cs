@@ -36,5 +36,20 @@ namespace WebAPI.Controllers
         {
             return Ok(_genreServices.Create(genre));
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult<Genre> Delete(int id)
+        {
+            return Ok(_genreServices.Delete(id));
+        }
+
+        [HttpPut]
+        public ActionResult<Genre> Update([FromBody]Genre genre,int id)
+        {
+            if (id != genre.Id)
+                return BadRequest("Id param should match with obj id");
+            return Ok(_genreServices.Update(genre));
+        }
+
     }
 }
