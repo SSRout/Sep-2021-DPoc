@@ -12,6 +12,7 @@ namespace DPoc.Efcore.Entities
         public string Title { get; set; }
         public DateTime ReleaseDate { get; set; }
         public string StoryLine { get; set; }
-        public int GenreEntityId { get; set; }
+        public int? GenreId { get; set; }//write
+        public GenreEntity Genre { get; set; }//read
     }
 }
