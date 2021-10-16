@@ -101,7 +101,7 @@ namespace InnoTech.VideoApplication2021.UI
                 StoryLine = videoStoryLine
             };
             video = _service.Create(video);
-            Print($"Video With Following Properties Created - Id: {video.Id.Value} Title: {video.Title} StoryLine: {video.StoryLine}");
+            Print($"Video With Following Properties Created - Id: {video.Id} Title: {video.Title} StoryLine: {video.StoryLine}");
             PrintNewLine();
         }
 

@@ -23,8 +23,8 @@ Core,Infrastructure,UI,Test
 	│   ├──Core(class library)
 	├── Infrastructure
 	│   ├──Fake SQL
-	│   ├──FE Core
-        │
+	│   ├──EF Core
+    │   │
 	├──demo1
 	│   ├── dm1(class library)
 	│   ├── dm2(ConsoleApp)
