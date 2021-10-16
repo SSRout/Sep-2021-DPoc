@@ -49,11 +49,12 @@ namespace DPoc.Efcore.Repositories
         public List<Video> FindAll()
         {
             return _ctx.Videos.Select(videoEntity => new Video { Id = videoEntity.Id, Title = videoEntity.Title,ReleaseDate=videoEntity.ReleaseDate,StoryLine=videoEntity.StoryLine,
-                Genre = new Genre
+                Genre = videoEntity.GenreId > 0 ? new Genre
                 {
                     Id = videoEntity.Genre.Id,
                     Name = videoEntity.Genre.Name
-                }
+
+                } : null
             }).ToList();
         }
 
