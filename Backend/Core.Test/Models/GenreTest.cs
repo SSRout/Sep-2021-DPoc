@@ -2,7 +2,7 @@ using InnotTech.VideoApplication2021.Core.Models;
 using System;
 using Xunit;
 
-namespace Core.Test
+namespace Core.Test.Models
 {
     public class GenreTest
     {

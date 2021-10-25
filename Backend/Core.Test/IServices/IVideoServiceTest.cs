@@ -1,4 +1,5 @@
 ﻿using InnotTech.VideoApplication2021.Core.IServices;
+using InnotTech.VideoApplication2021.Core.Models;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,18 @@ namespace Core.Test.IServices
         public void Is_VideoServiceAvailable()
         {
             Assert.NotNull(_videoService);
+        }
+
+        [Fact]
+        public void Get_VideosNoParam_ReturnListOfVideos()
+        {
+            var mock = new Mock<IVideoService>();
+            var fake = new List<Video>();
+            mock.Setup(s => s.ReadAll())
+                .Returns(fake);
+            var service = mock.Object;
+
+            Assert.Equal(fake, service.ReadAll());
         }
     }
 }
