@@ -5,6 +5,8 @@
   - .Net 5
   - Sql Lite
   - Fluent Api
+  - xUnit
+  - Moq
   
 
 
@@ -24,7 +26,6 @@ Core,Infrastructure,UI,Test
 	├── Infrastructure
 	│   ├──Fake SQL
 	│   ├──EF Core
-    │   │
 	├──demo1
 	│   ├── dm1(class library)
 	│   ├── dm2(ConsoleApp)

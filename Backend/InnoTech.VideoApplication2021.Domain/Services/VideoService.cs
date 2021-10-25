@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using InnoTech.VideoApplication2021.Domain.IRepositories;
 using InnotTech.VideoApplication2021.Core.IServices;
 using InnotTech.VideoApplication2021.Core.Models;
@@ -10,6 +11,8 @@ namespace InnoTech.VideoApplication2021.Domain.Services
         private IVideoRepository _repo;
         public VideoService(IVideoRepository repo)
         {
+            if (repo == null)
+                throw new InvalidDataException();
             _repo = repo;
         }
         
