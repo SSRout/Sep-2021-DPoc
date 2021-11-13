@@ -2,6 +2,7 @@
 using InnotTech.VideoApplication2021.Core.IServices;
 using InnotTech.VideoApplication2021.Core.Models;
 using System.Collections.Generic;
+using System.IO;
 
 namespace InnoTech.VideoApplication2021.Domain.Services
 {
@@ -11,6 +12,8 @@ namespace InnoTech.VideoApplication2021.Domain.Services
 
         public GenreService(IGenreRepository genreRepository)
         {
+            if (genreRepository == null)
+                throw new InvalidDataException();
             _genreRepository = genreRepository;
         }
         public Genre Create(Genre genre)

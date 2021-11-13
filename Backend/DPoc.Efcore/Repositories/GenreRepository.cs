@@ -2,6 +2,7 @@
 using InnotTech.VideoApplication2021.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,8 @@ namespace DPoc.Efcore.Repositories
         private readonly VideoApplicationDbContext _ctx;
         public GenreRepository(VideoApplicationDbContext ctx)
         {
-
+            if (ctx == null)
+                throw new InvalidDataException("");
             _ctx = ctx;
         }
         public Genre Create(Genre genre)

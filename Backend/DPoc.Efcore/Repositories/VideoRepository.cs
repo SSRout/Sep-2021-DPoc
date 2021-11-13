@@ -2,6 +2,7 @@
 using InnotTech.VideoApplication2021.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace DPoc.Efcore.Repositories
 
         public VideoRepository(VideoApplicationDbContext ctx)
         {
+            if (ctx == null)
+                throw new InvalidDataException("Must Have DbContext");
             _ctx = ctx;
         }
         public Video Add(Video video)
