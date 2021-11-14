@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,6 +17,8 @@ namespace WebAPI.Controllers
         private IGenreServices _genreServices;
         public GenresController(IGenreServices genreServices)
         {
+            if (genreServices == null)
+                throw new InvalidDataException("");
             _genreServices = genreServices;
         }
 

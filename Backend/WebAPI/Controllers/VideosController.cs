@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAPI.Dtos.Videos;
@@ -17,6 +18,8 @@ namespace WebAPI.Controllers
         private IVideoService _service;
         public VideosController(IVideoService repo)
         {
+            if (repo == null)
+                throw new InvalidDataException("");
             _service = repo;
         }
 
