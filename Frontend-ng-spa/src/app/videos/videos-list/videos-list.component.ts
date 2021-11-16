@@ -2,6 +2,7 @@ import { VideoService } from './../shared/video.service';
 import { Component, OnInit } from '@angular/core';
 import { VideoDto } from '../shared/video.dto';
 import { Observable } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-videos-list',
@@ -14,7 +15,9 @@ export class VideosListComponent implements OnInit {
   constructor(private _videoService:VideoService) { }
 
   ngOnInit(): void {
-    this.videos$=this._videoService.getAll();
+    this.videos$=this._videoService.getAll().pipe(
+      delay(1000)
+      );
   }
 
 
