@@ -1,0 +1,4 @@
+<p>videos-list works!</p>
+<ul *ngIf="videos$|async as videos">
+    <li *ngFor="let item of videos">id: {{item.title}} -story line {{item.storyLine}}</li>
+</ul>
