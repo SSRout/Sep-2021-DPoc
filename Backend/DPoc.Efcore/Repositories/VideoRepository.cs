@@ -35,10 +35,10 @@ namespace DPoc.Efcore.Repositories
                 Title = entity.Title,
                 ReleaseDate = entity.ReleaseDate,
                 StoryLine = entity.StoryLine,
-                Genre = new Genre
-                {
-                    Id = entity.Genre.Id
-                }
+                //Genre = new Genre
+                //{
+                //    Id = entity.Genre.Id
+                //}
             };
         }
 

@@ -42,6 +42,17 @@ namespace WebAPI
             services.AddScoped<IVideoRepository, VideoRepository>();
             services.AddScoped<IGenreServices, GenreService>();
             services.AddScoped<IGenreRepository, GenreRepository>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Dev-Cors",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +69,8 @@ namespace WebAPI
             }
 
             app.UseRouting();
+
+             app.UseCors("Dev-Cors");  
 
             app.UseAuthorization();
 
