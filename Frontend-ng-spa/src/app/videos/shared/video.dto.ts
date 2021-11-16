@@ -1,7 +1,7 @@
 export interface VideoDto {
    // Id:number;
-    Title:string;
-    StoryLine:string;
-    RelaseDate:string;
+    title:string;
+    storyLine:string;
+    relaseDate:string;
    // Genre:string;
 }
