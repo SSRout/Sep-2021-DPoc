@@ -7,13 +7,12 @@
   - Fluent Api
   - xUnit
   - Moq
-  
+  - Angular
 
 
 ### Project Structure
 
-In this applicatoin we have 3 Folder Structure 
-Core,Infrastructure,UI,Test
+Folder Structure 
 
 ```
 	.sln

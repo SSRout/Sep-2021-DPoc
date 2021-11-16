@@ -2,7 +2,7 @@ import { VideoService } from './../shared/video.service';
 import { Component, OnInit } from '@angular/core';
 import { VideoDto } from '../shared/video.dto';
 import { Observable } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { catchError, delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-videos-list',
@@ -11,12 +11,17 @@ import { delay } from 'rxjs/operators';
 })
 export class VideosListComponent implements OnInit {
   videos$: Observable<VideoDto[]>|undefined;
+  error: any;
 
   constructor(private _videoService:VideoService) { }
 
   ngOnInit(): void {
     this.videos$=this._videoService.getAll().pipe(
-      delay(1000)
+      delay(1000),
+      catchError(err=>{
+        this.error=err;
+        throw err;
+      })
       );
   }
 

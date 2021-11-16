@@ -2,4 +2,7 @@
 <ul *ngIf="videos$|async as videos else loading">
     <li *ngFor="let item of videos">id: {{item.title}} -story line {{item.storyLine}}</li>
 </ul>
-<ng-template #loading>---Loading</ng-template>
+<ng-template #loading>
+    <p *ngIf="!error else errormsg">---Loading</p>
+    <ng-template #errormsg>{{error?.message}}</ng-template>
+</ng-template>
