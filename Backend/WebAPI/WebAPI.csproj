@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AppData.Security\AppData.Security.csproj" />
     <ProjectReference Include="..\DPoc.Efcore\DPoc.Efcore.csproj" />
     <ProjectReference Include="..\InnoTech.VideoApplication2021.Domain\InnoTech.VideoApplication2021.Domain.csproj" />
     <ProjectReference Include="..\InnoTech.VideoApplication2021.SQL\InnoTech.VideoApplication2021.Fake.SQL.csproj" />

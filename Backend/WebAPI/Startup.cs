@@ -12,6 +12,7 @@ using DPoc.Efcore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using DPoc.Efcore.Repositories;
+using AppData.Security.Services;
 
 namespace WebAPI
 {
@@ -42,6 +43,7 @@ namespace WebAPI
             services.AddScoped<IVideoRepository, VideoRepository>();
             services.AddScoped<IGenreServices, GenreService>();
             services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<ISecurityService, SecurityService>();
 
             services.AddCors(options =>
             {

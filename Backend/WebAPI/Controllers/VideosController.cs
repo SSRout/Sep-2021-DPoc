@@ -1,5 +1,6 @@
 ﻿using InnotTech.VideoApplication2021.Core.IServices;
 using InnotTech.VideoApplication2021.Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,6 +14,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class VideosController : ControllerBase
     {
         private IVideoService _service;
