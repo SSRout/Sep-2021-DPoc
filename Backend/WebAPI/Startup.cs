@@ -43,7 +43,7 @@ namespace WebAPI
                     Scheme="Bearer",
                     BearerFormat="JWT",
                     In=ParameterLocation.Header,
-                    Description= "JWT Authourization header using the Bearer Scheme \r\n\r\n Enter 'Bearer'"
+                    Description= "JWT Authourization header using the Bearer Scheme \r\n\r\n Enter 'Bearer' [space] token \r\n\r\n Example 'Bearer sfjghbbdshbjh3y47y23j4bhbj32'"
                 });
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
