@@ -35,6 +35,30 @@ namespace WebAPI
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
+                //Add Bearer to Swagger startup
+                c.AddSecurityDefinition(name: "Bearer", new OpenApiSecurityScheme()
+                {
+                    Name="Authourization",
+                    Type=SecuritySchemeType.ApiKey,
+                    Scheme="Bearer",
+                    BearerFormat="JWT",
+                    In=ParameterLocation.Header,
+                    Description= "JWT Authourization header using the Bearer Scheme \r\n\r\n Enter 'Bearer'"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference=new OpenApiReference
+                            {
+                                Type=ReferenceType.SecurityScheme,
+                                Id="Bearer"
+                            }
+                        },
+                        new string[]{ }
+                    }
+                });
             });
             var loggerFact = LoggerFactory.Create(conf=>conf.AddConsole());
 
