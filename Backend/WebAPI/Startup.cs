@@ -13,6 +13,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using DPoc.Efcore.Repositories;
 using AppData.Security.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace WebAPI
 {
@@ -28,7 +31,6 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var value = Configuration["JwtConfig:Secret"];
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -39,6 +41,24 @@ namespace WebAPI
             services.AddDbContext<VideoApplicationDbContext>(options => {
                 options.UseLoggerFactory(loggerFact).UseSqlite("Data Source=VideoApplication.Db");
             });
+
+            services.AddAuthentication(authOpt=> {
+                authOpt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                authOpt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(opt=> {
+                opt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey=new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtConfig:Secret"])),
+                    ValidateIssuer=true,
+                    ValidIssuer= Configuration["JwtConfig:Issuer"],
+                    ValidateAudience=true,
+                    ValidAudience= Configuration["JwtConfig:Audiance"],
+                    ValidateLifetime=true
+                };
+            });
+
+            //setting up DI
             services.AddScoped<IVideoService, VideoService>();
             services.AddScoped<IVideoRepository, VideoRepository>();
             services.AddScoped<IGenreServices, GenreService>();
@@ -72,7 +92,9 @@ namespace WebAPI
 
             app.UseRouting();
 
-             app.UseCors("Dev-Cors");  
+            app.UseAuthentication();
+
+            app.UseCors("Dev-Cors");  
 
             app.UseAuthorization();
 
