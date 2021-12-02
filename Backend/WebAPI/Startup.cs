@@ -16,6 +16,10 @@ using AppData.Security.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using AppData.Security;
+using AppData.Security.IRepositories;
+using AppData.Security.Reposities;
+using AppData.Security.IServices;
 
 namespace WebAPI
 {
@@ -38,12 +42,13 @@ namespace WebAPI
                 //Add Bearer to Swagger startup
                 c.AddSecurityDefinition(name: "Bearer", new OpenApiSecurityScheme()
                 {
-                    Name="Authourization",
-                    Type=SecuritySchemeType.ApiKey,
-                    Scheme="Bearer",
-                    BearerFormat="JWT",
-                    In=ParameterLocation.Header,
-                    Description= "JWT Authourization header using the Bearer Scheme \r\n\r\n Enter 'Bearer' [space] token \r\n\r\n Example 'Bearer sfjghbbdshbjh3y47y23j4bhbj32'"
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+
                 });
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
@@ -65,6 +70,10 @@ namespace WebAPI
             services.AddDbContext<VideoApplicationDbContext>(options => {
                 options.UseLoggerFactory(loggerFact).UseSqlite("Data Source=VideoApplication.Db");
             });
+            //Setup Security Context
+            services.AddDbContext<AuthDbContext>(options => {
+                options.UseLoggerFactory(loggerFact).UseSqlite("Data Source=Auth.Db");
+            });
 
             services.AddAuthentication(authOpt=> {
                 authOpt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -77,7 +86,7 @@ namespace WebAPI
                     ValidateIssuer=true,
                     ValidIssuer= Configuration["JwtConfig:Issuer"],
                     ValidateAudience=true,
-                    ValidAudience= Configuration["JwtConfig:Audiance"],
+                    ValidAudience= Configuration["JwtConfig:Audience"],
                     ValidateLifetime=true
                 };
             });
@@ -89,6 +98,12 @@ namespace WebAPI
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<ISecurityService, SecurityService>();
 
+            //Setting up DI for Security
+            services.AddScoped<IAuthUserRepository, AuthUserRepository>();
+            services.AddScoped<IAuthUserService, AuthUserService>();
+            services.AddScoped<ISecurityService, SecurityService>();
+            services.AddScoped<IAuthDbSeeder, AuthDbSeeder>();
+
             services.AddCors(options =>
             {
                 options.AddPolicy("Dev-Cors",
@@ -98,11 +113,18 @@ namespace WebAPI
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                     });
+                options.AddPolicy("Prod-cors", policy =>
+                {
+                    policy
+                        .WithOrigins("*")//provide actual one
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,VideoApplicationDbContext ctx)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,VideoApplicationDbContext ctx, IAuthDbSeeder authDbSeeder)
         {
             if (env.IsDevelopment())
             {
@@ -112,8 +134,12 @@ namespace WebAPI
 
                 ctx.Database.EnsureDeleted();//If Exists id Development mode only to avoid migration
                 ctx.Database.EnsureCreated();
+                authDbSeeder.SeedDevelopment();
             }
-
+            else
+            {
+                app.UseCors("Prod-cors");
+            }
             app.UseRouting();
 
             app.UseAuthentication();

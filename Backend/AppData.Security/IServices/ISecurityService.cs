@@ -6,5 +6,6 @@ namespace AppData.Security.Services
     public interface ISecurityService
     {
         JwtToken GenerateToken(string username, string password);
+        string HashedPassword(string plainTextPassword, byte[] userSalt);
     }
 }
