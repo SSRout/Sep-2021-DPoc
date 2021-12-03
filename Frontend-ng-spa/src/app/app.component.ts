@@ -1,3 +1,4 @@
+import { AuthService } from './auth/shared/auth.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Frontend-ng-spa';
+  constructor(private _auth:AuthService){}
+
+  logout(){
+    this._auth.logout()
+  }
+
 }
