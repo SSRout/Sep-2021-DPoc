@@ -12,6 +12,7 @@ import { tap } from 'rxjs/operators';
 export class AuthService {
 
   constructor(private _http:HttpClient) { }
+
   login(loginDto:LoginDto):Observable<TokenDto>{
     return this._http.post<TokenDto>(environment.baseUrl+'api/Auth/Login',loginDto)
     .pipe(
@@ -20,5 +21,9 @@ export class AuthService {
           localStorage.setItem('jwtToken',token.jwt)
       })
     );
+  }
+
+  getToken():string|null{
+    return localStorage.getItem('jwtToken');
   }
 }

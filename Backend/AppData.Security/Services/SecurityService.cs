@@ -45,7 +45,7 @@ namespace AppData.Security.Services
 
             return new JwtToken
             {
-                Message = "User or Password not correct"
+                Message = "Invalid User or Password not correct"
             };
         }
         private bool Authenticate(string plainTextPassword, AuthUser user)
