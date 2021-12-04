@@ -1,9 +1,9 @@
 import { VideosListComponent } from './videos-list/videos-list.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
+import { AuthGuard } from '../auth/guards/auth.guard';
 const routes: Routes = [
-  {path:'',component:VideosListComponent}
+  {path:'',component:VideosListComponent,canActivate:[AuthGuard]}
 ];
 
 @NgModule({
