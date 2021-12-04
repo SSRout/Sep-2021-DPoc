@@ -135,6 +135,8 @@ namespace WebAPI
                 ctx.Database.EnsureDeleted();//If Exists id Development mode only to avoid migration
                 ctx.Database.EnsureCreated();
                 authDbSeeder.SeedDevelopment();
+
+                app.UseCors("Dev-Cors");
             }
             else
             {
@@ -143,8 +145,6 @@ namespace WebAPI
             app.UseRouting();
 
             app.UseAuthentication();
-
-            app.UseCors("Dev-Cors");  
 
             app.UseAuthorization();
 
