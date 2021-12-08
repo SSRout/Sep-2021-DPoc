@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Authentication;
 using System.Text;
 
 namespace AppData.Security.Services
@@ -43,10 +44,12 @@ namespace AppData.Security.Services
                 };
             }
 
-            return new JwtToken
-            {
-                Message = "Invalid User or Password not correct"
-            };
+            throw new AuthenticationException("Invalid User or Password not correct");
+
+            //return new JwtToken
+            //{
+            //    Message = "Invalid User or Password not correct"
+            //};
         }
         private bool Authenticate(string plainTextPassword, AuthUser user)
         {

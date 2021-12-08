@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
@@ -28,12 +29,23 @@ namespace WebAPI.Controllers
         [AllowAnonymous]
         public ActionResult<TokenDto>Login(LoginDto dto)
         {
-            var token = _securityService.GenerateToken(dto.UserName, dto.Password);
-            return Ok(new TokenDto
+            try
             {
-                jwt=token.Jwt,
-                Mesage=token.Message
-            });
+                var token = _securityService.GenerateToken(dto.UserName, dto.Password);
+                return Ok(new TokenDto
+                {
+                    jwt = token.Jwt,
+                    Mesage = token.Message
+                });
+            }
+            catch(AuthenticationException ae)
+            {
+                return Unauthorized(ae.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500,"Please Contact Admin");
+            }
         }
     }
 
