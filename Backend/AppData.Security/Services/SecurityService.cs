@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Authentication;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace AppData.Security.Services
@@ -68,6 +69,32 @@ namespace AppData.Security.Services
                 prf: KeyDerivationPrf.HMACSHA256,
                 iterationCount: 100000,
                 numBytesRequested: 256 / 8));
+        }
+
+        public AuthUser GenerateNewUser(string username,string passwprd)
+        {
+            var defaultPassword = passwprd??"123456";
+            var salt = GenerateSalt();
+            var hashedPwd= HashedPassword(defaultPassword, salt);
+
+            AuthUser user=_authUserService.Create(new AuthUser
+            {
+                UserName=username,
+                HashedPassword = hashedPwd,
+                Salt=salt
+            });
+
+            return user;
+        }
+
+        public byte[] GenerateSalt()
+        {
+            var salt=new byte[128 / 8];
+            using (var rngCsp = new RNGCryptoServiceProvider())
+            {
+                rngCsp.GetNonZeroBytes(salt);
+            }
+            return salt;
         }
     }
 }

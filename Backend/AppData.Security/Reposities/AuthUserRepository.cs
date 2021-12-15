@@ -1,4 +1,5 @@
-﻿using AppData.Security.IRepositories;
+﻿using AppData.Security.Entities;
+using AppData.Security.IRepositories;
 using AppData.Security.Models;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,23 @@ namespace AppData.Security.Reposities
         {
             _ctx = ctx;
         }
+
+        public AuthUser Create(AuthUser authUser)
+        {
+           var entity= _ctx.Add(new AuthUserEntity
+            {
+                HashedPassword=authUser.HashedPassword,
+                Salt=Convert.ToBase64String(authUser.Salt),
+                Username=authUser.UserName
+            }).Entity;
+            _ctx.SaveChanges();
+            return new AuthUser
+            {
+                Id = entity.Id,
+                UserName = entity.Username
+            };
+        }
+
         public AuthUser FindByUsernameAndPassword(string username, string hashedPassword)
         {
             var entity = _ctx.AuthUsers
@@ -40,7 +58,7 @@ namespace AppData.Security.Reposities
                 Id = entity.Id,
                 UserName = entity.Username,
                 HashedPassword = entity.HashedPassword,
-                Salt = Encoding.ASCII.GetBytes(entity.Salt)
+                Salt = Convert.FromBase64String(entity.Salt)
             };
         }
     }

@@ -25,17 +25,7 @@ namespace AppData.Security
         {
             _ctx.Database.EnsureDeleted();
             _ctx.Database.EnsureCreated();
-
-            var salt = "123#!";
-            _ctx.AuthUsers.Add(new AuthUserEntity
-            {
-                Salt = salt,
-                HashedPassword = _securityService.HashedPassword(
-                    "test",
-                    Encoding.ASCII.GetBytes(salt)),
-                Username = "test"
-            });
-            _ctx.SaveChanges();
+            _securityService.GenerateNewUser("test", "test");
         }
 
         public void SeedProduction()

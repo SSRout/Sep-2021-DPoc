@@ -7,5 +7,9 @@ namespace AppData.Security.Services
     {
         JwtToken GenerateToken(string username, string password);
         string HashedPassword(string plainTextPassword, byte[] userSalt);
+
+        AuthUser GenerateNewUser(string username, string password);
+
+        byte[] GenerateSalt();
     }
 }

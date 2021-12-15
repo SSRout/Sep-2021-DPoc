@@ -11,5 +11,6 @@ namespace AppData.Security.IRepositories
     {
         // AuthUser FindByUsernameAndPassword(string username, string password);
         AuthUser FindUser(string username);
+        AuthUser Create(AuthUser authUser);
     }
 }

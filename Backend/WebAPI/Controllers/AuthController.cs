@@ -47,6 +47,41 @@ namespace WebAPI.Controllers
                 return StatusCode(500,"Please Contact Admin");
             }
         }
+
+        [HttpPost]
+        public ActionResult<AuthUserDto> CreateUser([FromBody]CreateAuthUserDto userDto)
+        {
+            ActionResult response = null;
+            try
+            {
+                var authUser = _securityService.GenerateNewUser(userDto.UserName, userDto.Password);
+                if (authUser != null)
+                {
+                    response = Ok(new AuthUserDto
+                    {
+                        Id = authUser.Id,
+                        UserName = authUser.UserName
+                    });
+                }
+                return response;
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, "Please Contact Admin");
+            }
+        }
+    }
+
+    public class CreateAuthUserDto
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+    }
+
+    public class AuthUserDto
+    {
+        public int Id { get; set; }
+        public string UserName { get; set; }
     }
 
     public class LoginDto
