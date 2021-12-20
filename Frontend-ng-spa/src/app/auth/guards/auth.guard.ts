@@ -7,25 +7,35 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import jwt_decode from "jwt-decode";
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private _auth: AuthService,private _routrt:Router) {}
+  constructor(private _auth: AuthService,private _routr:Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> {
-    return this._auth.isLogedIn$.pipe(
-      map((token) => {
-        if (token && token.length > 0) {
-          return true;
-        }
-        return this._routrt.parseUrl('/auth/login');
+    const isValid=this.isTokenValid(this._auth.getToken());
+    return isValid?of(true):this._auth.logout().pipe(
+      map(() => {
+        return this._routr.parseUrl('/auth/login');;
       })
     );
   }
+  public isTokenValid(token: string|null) {
+    if (!token || token.length <= 0) {
+      return false;
+    }
+    const decoded=jwt_decode(token) as DecodedToken
+    return Date.now()<=decoded.exp*1000;
+  }
+}
+
+interface DecodedToken{
+  exp:number;
 }

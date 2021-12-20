@@ -48,7 +48,7 @@ namespace WebAPI.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost(nameof(CreateUser))]
         public ActionResult<AuthUserDto> CreateUser([FromBody]CreateAuthUserDto userDto)
         {
             ActionResult response = null;

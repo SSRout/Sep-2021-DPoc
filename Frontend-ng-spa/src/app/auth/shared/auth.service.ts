@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { TokenDto } from './token.dto';
 import { tap,take } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { SignupDto } from './signup.dto';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +14,7 @@ export class AuthService {
   isLogedIn$=new BehaviorSubject<string|null>(this.getToken());
   constructor(private _http:HttpClient) { }
 
-  login(loginDto:LoginDto):Observable<TokenDto>{
+  public login(loginDto:LoginDto):Observable<TokenDto>{
     return this._http.post<TokenDto>(environment.baseUrl+'api/Auth/Login',loginDto)
     .pipe(
       tap(token=>{
@@ -28,11 +29,15 @@ export class AuthService {
     );
   }
 
-  getToken():string|null{
+  public getToken():string|null{
     return localStorage.getItem('jwtToken');
   }
 
-  logout():Observable<boolean>{
+  public CreateUser(userDto:SignupDto):Observable<any>{
+    return this._http.post<any>(environment.baseUrl+'api/auth/CreateUser',userDto);
+  }
+
+  public logout():Observable<boolean>{
     localStorage.removeItem('jwtToken');
     this.isLogedIn$.next(null);
     return of(true).pipe(take(1));

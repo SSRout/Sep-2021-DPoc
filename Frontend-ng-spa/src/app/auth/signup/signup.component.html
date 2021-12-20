@@ -1,0 +1,13 @@
+<h1>New User</h1>
+<form [formGroup]="userForm" (ngSubmit)="create()">
+   <div> 
+    <label for="userName">User Name:</label>
+    <input type="text" id="userName" formControlName="userName">
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" formControlName="password">
+    <button type="submit">Sign Up</button>
+   </div>
+</form>
+<div *ngIf="err" class="error">{{err}}</div>
+<div *ngIf="message" class="message">{{message}}</div>
