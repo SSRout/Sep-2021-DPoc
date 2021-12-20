@@ -5,12 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.10" />
+    <None Remove="Auth.Db-shm" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.12" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AppData.Security\AppData.Security.csproj" />
     <ProjectReference Include="..\DPoc.Efcore\DPoc.Efcore.csproj" />
     <ProjectReference Include="..\InnoTech.VideoApplication2021.Domain\InnoTech.VideoApplication2021.Domain.csproj" />
     <ProjectReference Include="..\InnoTech.VideoApplication2021.SQL\InnoTech.VideoApplication2021.Fake.SQL.csproj" />
